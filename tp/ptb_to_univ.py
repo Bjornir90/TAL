@@ -1,6 +1,15 @@
+import argparse
 
+def get_args():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("conv_table", help="File containing the matching tags between PTB and univ")
+	parser.add_argument("fin", help="Reference text file (with tags in it)")
+	parser.add_argument("fout", help="Output file")
+	return parser.parse_args()
+	
+args = get_args()
 
-match_table = open("POSTags_PTB_Universal_Linux.txt", 'r')
+match_table = open(args.conv_table, 'r')
 
 match_dict = {}
 
@@ -16,7 +25,7 @@ for line in match_table:
 match_table.close()
 print(match_dict)
 
-ref_ptb = open("wsj_0010_sentence.pos.ref", 'r')
+ref_ptb = open(args.fin, 'r')
 text = ref_ptb.read()
 
 splitted_text = text.split(" ")
@@ -28,6 +37,6 @@ for elt in splitted_text:
 
 ref_ptb.close()
 
-result_file = open("wsj_0010_sample.txt.pos.univ.ref", 'w')
+result_file = open(args.fout, 'w')
 result_file.write(result[:-1])
 result_file.close()
