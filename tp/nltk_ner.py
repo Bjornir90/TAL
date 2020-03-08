@@ -25,11 +25,23 @@ in_file.close()
 
 named = nltk.ne_chunk(taggedList, binary=False)
 
+print(named)
+
 out_file = open(args.out_file, "w")
 
 for chunk in named:
 	if hasattr(chunk, "label"):
-		out_file.write("".join(c[0] for c in chunk)+"\t"+chunk.label()+"\n")
-
+	
+		atStartOfChunk = True
+		#Put a space in-between words composing a multi-word entity name
+		for c in chunk:
+			if not atStartOfChunk:
+				out_file.write(" ")
+			out_file.write(c[0])
+			atStartOfChunk = False
+			
+		out_file.write("\t"+chunk.label()+"\n")
+	else:
+		out_file.write("".join(chunk[0])+"\tO\n")
 
 out_file.close()
