@@ -28,6 +28,7 @@ named = nltk.ne_chunk(taggedList, binary=False)
 out_file = open(args.out_file, "w")
 
 for chunk in named:
+	print(chunck)
 	if hasattr(chunk, "label"):
 		out_file.write("".join(c[0] for c in chunk)+"\t"+chunk.label()+"\n")
 
