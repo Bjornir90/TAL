@@ -30,6 +30,7 @@ print(named)
 out_file = open(args.out_file, "w")
 
 for chunk in named:
+	print(chunck)
 	if hasattr(chunk, "label"):
 	
 		atStartOfChunk = True
